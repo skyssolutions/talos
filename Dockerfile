@@ -152,7 +152,7 @@ FROM --platform=amd64 ${PKG_FLANNEL_CNI} AS pkg-flannel-cni-amd64
 FROM --platform=arm64 ${PKG_FLANNEL_CNI} AS pkg-flannel-cni-arm64
 
 FROM ${PKG_KERNEL} AS pkg-kernel
-FROM --platform=amd64 ${PKG_KERNEL} AS pkg-kernel-amd64
+#FROM --platform=amd64 ${PKG_KERNEL} AS pkg-kernel-amd64
 FROM --platform=arm64 ${PKG_KERNEL} AS pkg-kernel-arm64
 
 FROM --platform=amd64 ${TOOLS} AS tools-amd64
@@ -642,22 +642,22 @@ FROM scratch AS sd-stub
 ARG TARGETARCH
 COPY --from=pkg-sd-boot /*.efi.stub /sd-stub-${TARGETARCH}.efi
 
-FROM tools AS depmod-amd64
-WORKDIR /staging
-COPY hack/modules-amd64.txt .
-COPY --from=pkg-kernel-amd64 /lib/modules lib/modules
-RUN <<EOF
-set -euo pipefail
+#FROM tools AS depmod-amd64
+#WORKDIR /staging
+#COPY hack/modules-amd64.txt .
+#COPY --from=pkg-kernel-amd64 /lib/modules lib/modules
+#RUN <<EOF
+#set -euo pipefail
 
-KERNEL_VERSION=$(ls lib/modules)
+#KERNEL_VERSION=$(ls lib/modules)
 
-xargs -a modules-amd64.txt -I {} install -D lib/modules/${KERNEL_VERSION}/{} /build/lib/modules/${KERNEL_VERSION}/{}
+#xargs -a modules-amd64.txt -I {} install -D lib/modules/${KERNEL_VERSION}/{} /build/lib/modules/${KERNEL_VERSION}/{}
 
-depmod -b /build ${KERNEL_VERSION}
-EOF
+#depmod -b /build ${KERNEL_VERSION}
+#EOF
 
-FROM scratch AS modules-amd64
-COPY --from=depmod-amd64 /build/lib/modules /lib/modules
+#FROM scratch AS modules-amd64
+#COPY --from=depmod-amd64 /build/lib/modules /lib/modules
 
 FROM tools AS depmod-arm64
 WORKDIR /staging
@@ -710,7 +710,7 @@ COPY --link --from=pkg-util-linux-amd64 /lib/libuuid.* /rootfs/lib/
 COPY --link --from=pkg-util-linux-amd64 /lib/libmount.* /rootfs/lib/
 COPY --link --from=pkg-kmod-amd64 /usr/lib/libkmod.* /rootfs/lib/
 COPY --link --from=pkg-kmod-amd64 /usr/bin/kmod /rootfs/sbin/modprobe
-COPY --link --from=modules-amd64 /lib/modules /rootfs/lib/modules
+#COPY --link --from=modules-amd64 /lib/modules /rootfs/lib/modules
 COPY --link --from=machined-build-amd64 /machined /rootfs/sbin/init
 
 # this is a no-op as it copies from a scratch image when WITH_DEBUG_SHELL is not set
@@ -919,11 +919,11 @@ RUN chmod +x /installer
 FROM alpine:3.20.3 AS unicode-pf2
 RUN apk add --no-cache --update --no-scripts grub
 
-FROM scratch AS install-artifacts-amd64
-COPY --from=pkg-kernel-amd64 /boot/vmlinuz /usr/install/amd64/vmlinuz
-COPY --from=initramfs-archive-amd64 /initramfs.xz /usr/install/amd64/initramfs.xz
-COPY --from=pkg-sd-boot-amd64 /linuxx64.efi.stub /usr/install/amd64/systemd-stub.efi
-COPY --from=pkg-sd-boot-amd64 /systemd-bootx64.efi /usr/install/amd64/systemd-boot.efi
+#FROM scratch AS install-artifacts-amd64
+#COPY --from=pkg-kernel-amd64 /boot/vmlinuz /usr/install/amd64/vmlinuz
+#COPY --from=initramfs-archive-amd64 /initramfs.xz /usr/install/amd64/initramfs.xz
+#COPY --from=pkg-sd-boot-amd64 /linuxx64.efi.stub /usr/install/amd64/systemd-stub.efi
+#COPY --from=pkg-sd-boot-amd64 /systemd-bootx64.efi /usr/install/amd64/systemd-boot.efi
 
 FROM scratch AS install-artifacts-arm64
 COPY --from=pkg-kernel-arm64 /boot/vmlinuz /usr/install/arm64/vmlinuz
@@ -932,7 +932,7 @@ COPY --from=pkg-sd-boot-arm64 /linuxaa64.efi.stub /usr/install/arm64/systemd-stu
 COPY --from=pkg-sd-boot-arm64 /systemd-bootaa64.efi /usr/install/arm64/systemd-boot.efi
 
 FROM scratch AS install-artifacts-all
-COPY --from=install-artifacts-amd64 / /
+#COPY --from=install-artifacts-amd64 / /
 COPY --from=install-artifacts-arm64 / /
 
 FROM install-artifacts-${TARGETARCH} AS install-artifacts-targetarch
