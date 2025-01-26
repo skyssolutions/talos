@@ -1,4 +1,4 @@
-module github.com/siderolabs/talos
+module github.com/skyssolutions/talos
 
 go 1.23.3
 
@@ -195,6 +195,8 @@ require (
 	sigs.k8s.io/hydrophone v0.6.1-0.20240718103601-b92baf7e0b04
 	sigs.k8s.io/yaml v1.4.0
 )
+
+require github.com/siderolabs/talos v1.9.2
 
 require (
 	cel.dev/expr v0.18.0 // indirect

@@ -689,6 +689,8 @@ github.com/siderolabs/protoenc v0.2.1 h1:BqxEmeWQeMpNP3R6WrPqDatX8sM/r4t97OP8mFm
 github.com/siderolabs/protoenc v0.2.1/go.mod h1:StTHxjet1g11GpNAWiATgc8K0HMKiFSEVVFOa/H0otc=
 github.com/siderolabs/siderolink v0.3.11 h1:teJ/LMjSyLekhJVy2+nDIuOBPrVRAMwusJQzxdA95K0=
 github.com/siderolabs/siderolink v0.3.11/go.mod h1:QbGnXpHI5MDq6qMZkCFnxYOOw5eE+lkLx53L5ZgjLMQ=
+github.com/siderolabs/talos v1.9.2 h1:TT3MAoeh6v/pcAXkiu5Dd7XLutz2NH34DxLqCGvX0ek=
+github.com/siderolabs/talos v1.9.2/go.mod h1:oCHfobIOBITDvOFavqI6CcFalVk4Pa/dXmHed+MYKP8=
 github.com/siderolabs/tcpproxy v0.1.0 h1:IbkS9vRhjMOscc1US3M5P1RnsGKFgB6U5IzUk+4WkKA=
 github.com/siderolabs/tcpproxy v0.1.0/go.mod h1:onn6CPPj/w1UNqQ0U97oRPF0CqbrgEApYCw4P9IiCW8=
 github.com/siderolabs/wgctrl-go v0.0.0-20240401105613-579af3342774 h1:wLhs5zMQVjA6LN9WpF2owOdtcoRp40zL8AaQSle+9EE=
