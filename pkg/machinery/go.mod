@@ -1,4 +1,4 @@
-module github.com/siderolabs/talos/pkg/machinery
+module github.com/skyssolutions/talos/pkg/machinery
 
 go 1.23.3
 
